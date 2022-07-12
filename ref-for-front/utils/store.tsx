@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 // * 1. Create context type
-
 export type MeType = {
   id: string;
   email: string;
@@ -17,7 +16,6 @@ type ContextType = {
 };
 
 // * 2. Create context default values
-
 const contextDefaultValues: ContextType = {
   me: null,
   login: (me: MeType) => {},
@@ -25,7 +23,6 @@ const contextDefaultValues: ContextType = {
 };
 
 // * 3. Define createContext and create custom useContext
-
 const Context = createContext<ContextType>(contextDefaultValues);
 
 export const useAuth = (): ContextType => {
@@ -33,7 +30,6 @@ export const useAuth = (): ContextType => {
 };
 
 // * 4. Create a provider function
-
 type Props = {
   children: ReactNode;
 };
@@ -62,18 +58,4 @@ export const AuthProvider = ({ children }: Props) => {
   );
 };
 
-// * 5. wrapping _app.tsx
 
-// function RootApp({ Component, pageProps }) {
-//     return (
-//         <>
-//             <AuthProvider>
-//                 <Component {...pageProps} />
-//             </AuthProvider>
-//         </>
-//     );
-// }
-
-// * 6. using context
-
-// const { me, login, logout } = useAuth();

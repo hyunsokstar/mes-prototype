@@ -8,10 +8,13 @@ function useInput<T>(
     Dispatch<SetStateAction<T>>
   ] {
   const [value, setValue] = useState<typeof initialValue>(initialValue);
+
   const handleChange = useCallback(({ target: { value } }) => {
     setValue(value);
   }, []);
+
   return [value, handleChange, setValue];
+  
 }
 
 export default useInput;
