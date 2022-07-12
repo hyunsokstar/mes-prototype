@@ -50,7 +50,7 @@ function LoginForm({ }: Props) {
                   );
             }
 
-            localStorage.setItem('mes-token' , response.data.data.accessToken);
+            localStorage.setItem('mes-token' , response.data.data.token);
 
 
 
