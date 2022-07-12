@@ -19,6 +19,9 @@ export class AuthService {
         // db 에서 email 에 해당하는 cat 정보 가져오기
         const cat = await this.catsRepository.findCatByEmail(email);
 
+        console.log("cat info : ", cat);
+
+
         if (!cat) {
             throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
         }
@@ -31,13 +34,15 @@ export class AuthService {
 
 
         // 통과 못하면 에러 발생
-        if (!isPasswordValidated) { 
+        if (!isPasswordValidated) {
             throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
         }
 
         const payload = { email: email, sub: cat.id };
 
         return {
+            email: cat.email,
+            name: cat.name,
             token: this.jwtService.sign(payload),
         };
 

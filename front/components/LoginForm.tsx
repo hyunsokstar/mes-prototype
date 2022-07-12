@@ -2,6 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import styled from 'styled-components';
 import axios from "axios";
 import api from "../utils/api"
+import userSlice from "../slices/user"
+import RenderResult from "next/dist/server/render-result";
+import { useSelector, useDispatch } from 'react-redux';
+
 
 type Props = {}
 
@@ -12,9 +16,9 @@ const LoginBar = styled.h1`
 
 
 function LoginForm({ }: Props) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
 
     // const handleClick = () => {
     //     try {
@@ -36,13 +40,27 @@ function LoginForm({ }: Props) {
 
             console.log("response.data : ", response.data);
 
-            const getResponse = await axios.get(`${api.cats}`, {
-                withCredentials: true,
-                headers: {
-                    Authorization: "Bearer " + response.data.data.token,
-                },
-            });
-            console.log("getResponse : ", getResponse);
+            if (response.data) {
+                dispatch(
+                    userSlice.actions.setUser({
+                      email: response.data.data.email,
+                      name: response.data.data.name,
+                      accessToken: response.data.data.token,
+                    }),
+                  );
+            }
+
+            localStorage.setItem('mes-token' , response.data.data.accessToken);
+
+
+
+            // const getResponse = await axios.get(`${api.cats}`, {
+            //     withCredentials: true,
+            //     headers: {
+            //         Authorization: "Bearer " + response.data.data.token,
+            //     },
+            // });
+            // console.log("getResponse : ", getResponse);
 
 
 
