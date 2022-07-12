@@ -7,7 +7,6 @@ import RenderResult from "next/dist/server/render-result";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/reducer';
 
-
 type Props = {}
 
 const LoginBar = styled.h1`
@@ -22,10 +21,7 @@ function LoginForm({ }: Props) {
 
     const isLoggedIn = useSelector((state: RootState) => !!state.user.email);
     const user = useSelector((state: RootState) => state.user);
-
-
     console.log('isLoggedIn', isLoggedIn);
-
     const dispatch = useDispatch();
 
     // const handleClick = () => {
@@ -45,7 +41,6 @@ function LoginForm({ }: Props) {
                 { email, password },
                 { withCredentials: true }
             );
-
             console.log("response.data : ", response.data);
 
             if (response.data) {
@@ -59,8 +54,6 @@ function LoginForm({ }: Props) {
             }
 
             localStorage.setItem('mes-token', response.data.data.token);
-
-
 
             // const getResponse = await axios.get(`${api.cats}`, {
             //     withCredentials: true,
