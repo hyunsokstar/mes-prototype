@@ -18,6 +18,8 @@ import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { Request } from "express"
 import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -26,6 +28,20 @@ export class CatsController {
     private readonly CatsService: CatsService,
     private readonly authService: AuthService
   ) { }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('login_check')
+  loginCheckForUserReuquest(@CurrentUser() cat) {
+
+    if (cat) {
+      console.log("현재 로그인한 cat 정보 : ", cat);
+      return cat.readOnlyData;
+    } else {
+      {
+        throw new UnauthorizedException('로그인 상태가 아닙니다.');
+      }
+    }
+  }
 
 
   @UseGuards(JwtAuthGuard)
