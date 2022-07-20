@@ -4,7 +4,6 @@ import api from "../utils/api"
 import LoginForm from '../components/LoginForm'
 import userSlice from "../slices/user"
 
-
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/reducer';
 import { useEffect } from "react";
@@ -13,7 +12,6 @@ import { useEffect } from "react";
 interface LayoutProps {
     children: React.ReactNode;
 }
-
 
 const AppLayout = ({ children }: LayoutProps) => {
     const isLoggedIn = useSelector((state: RootState) => !!state.user.me.email);
@@ -26,19 +24,19 @@ const AppLayout = ({ children }: LayoutProps) => {
 
         const current_token = localStorage.getItem("mes-token");
         console.log("current_token : ", current_token);
-        
 
-        const login_user = await axios.post(`${api.cats}/login_check`, {},{
+
+        const login_user = await axios.post(`${api.cats}/login_check`, {}, {
             withCredentials: true,
             headers: {
-              Authorization: "Bearer "+current_token,
+                Authorization: "Bearer " + current_token,
             },
-          });
+        });
 
-          console.log("login_user : ", login_user);
-          
+        console.log("login_user : ", login_user);
 
-          if (login_user.data.success) {
+
+        if (login_user.data.success) {
             dispatch(
                 userSlice.actions.setUser({
                     email: login_user.data.data.email,
@@ -47,10 +45,10 @@ const AppLayout = ({ children }: LayoutProps) => {
                 }),
             );
         }
-        
+
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         loginCheck();
     }, [])
 
@@ -58,7 +56,6 @@ const AppLayout = ({ children }: LayoutProps) => {
         <div>
             {isLoggedIn ? <span>{user.name} 님 안녕하세요 <button>로그 아웃</button> </span> : (
                 <LoginForm />
-
             )}
             {children}
         </div>

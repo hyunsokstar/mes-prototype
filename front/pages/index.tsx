@@ -3,6 +3,7 @@ import AppLayout from "../components/AppLayout";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import api from "../utils/api"
+import UserContainer from "../components/UserContainer"
 
 
 
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
 
   return (
     <AppLayout>
-      hello world
+      <UserContainer />
     </AppLayout>
   )
 }

@@ -15,10 +15,8 @@ export class AuthService {
 
     async jwtlogin(data: LoginRequestDto) {
         const { email, password } = data;
-
         // db 에서 email 에 해당하는 cat 정보 가져오기
         const cat = await this.catsRepository.findCatByEmail(email);
-
         console.log("cat info : ", cat);
 
 

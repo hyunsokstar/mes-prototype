@@ -42,7 +42,6 @@ function LoginForm({ }: Props) {
             localStorage.setItem('mes-token', response.data.data.token);
 
 
-
         } catch (error: any) {
             if (error.response) {
                 console.log(error.response);
